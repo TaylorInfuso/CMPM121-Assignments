@@ -1,4 +1,10 @@
-//This file is for creating a list object
+//Name: Taylor Infuso
+//Date: 27 January, 2019
+//File: List.c
+//Description:
+//This file is for creating list and node objects and supplying 
+//functions for alterations of their contents like addition and
+//removal of elements.
 
 
 
@@ -40,6 +46,7 @@ List newList(){
 	return L;
 }
 
+//empties the list
 void freeList(List *pL){
 	List temp = *pL;
 	while(temp->cursor->next != NULL){
@@ -100,6 +107,7 @@ int equals(List A, List B){
 	return 0;
 }
 
+//clears the list out
 void clear(List L){
 	L->head = NULL;
 	L->tail = NULL;
@@ -107,6 +115,7 @@ void clear(List L){
 	L->length = 0;
 }
 
+//returns the front element of the list
 Node getFront(List L){
 	if(L->length > 0)
 		return L->head;
@@ -114,6 +123,7 @@ Node getFront(List L){
 		return 0;
 }
 
+//returns the last element of the list
 Node getBack(List L){
 	if(L->length > 0)
 		return L->tail;
@@ -121,6 +131,7 @@ Node getBack(List L){
 		return 0;
 }
 
+//returns the element before the supplied one
 Node getPrevNode(Node N){
 	if(N->back != NULL)
 		return N->back;
@@ -128,6 +139,7 @@ Node getPrevNode(Node N){
 		return 0;
 }
 
+//returns the element after the supplied one
 Node getNextNode(Node N){
 	if(N->next != NULL)
 		return N->next;
@@ -135,6 +147,8 @@ Node getNextNode(Node N){
 		return 0;
 }
 
+//adds a new element to the list at the head. If the length of the list
+//is 0, this element becomes the head and the tail.
 void prepend(List L, int data){
 	if(L->length > 0){
                 NodeObj* temp = malloc(sizeof(NodeObj));
@@ -153,6 +167,8 @@ void prepend(List L, int data){
 	}
 }
 
+//adds a new element to the end of the list, making it the tail. If the
+//list is empty, the new element will become the head and tail.
 void append(List L, int data){
 	if(L->length > 0){
                 NodeObj* temp = malloc(sizeof(NodeObj));
@@ -161,13 +177,8 @@ void append(List L, int data){
 		L->tail->next = temp;
 		L->tail = temp;
 		L->length++;
-		//int val = temp->index;
-		//printf("our value: ", val);
-		//printf(val);
-		//printf(" qq");
 	}
 	else{
-		printf("we failed");
                 NodeObj* temp = malloc(sizeof(NodeObj));
                 temp->index = data;
 		L->head = temp;
@@ -176,34 +187,26 @@ void append(List L, int data){
 	}
 }
 
+//deletes the head of the list
 void deleteFront(List L){
 	if(L->length > 1){
 		L->head = L->head->next;
 		erase(L->head->back);
 		L->length--;
 	}
-	else if(L->length == 0){
-		erase(L->head);
-		erase(L->tail);
-		erase(L->cursor);
-		L->length--;
-	}
 }
 
+//deletes the tail of the list
 void deleteBack(List L){
         if(L->length > 1){
                 L->tail = L->tail->back;
 		erase(L->tail->next);
                 L->length--;
         }
-        else if(L->length == 1){
-                erase(L->head);
-                erase(L->tail);
-                erase(L->cursor);
-                L->length--;
-        }
 }
 
+//inserts a new element before the supplied one. Becomes the head if
+//the new node goes before the head.
 void insertBefore(List L, Node N, int data){
 	if(L->length > 0){
 		if(N == L->head){
@@ -228,6 +231,8 @@ void insertBefore(List L, Node N, int data){
 	}
 }
 
+//inserts a new element after the supplied node. If the supplied node is
+//the tail, the new node becomes the tail
 void insertAfter(List L, Node N, int data){
 	if(L->length > 0){
 		if(N == L->tail){
@@ -252,34 +257,7 @@ void insertAfter(List L, Node N, int data){
 	}
 }
 
-//void deleteFront(List L){
-//	if(L->length == 1){
-//		erase(L->head);
-//		erase(L->tail);
-//		erase(L->cursor);
-//		L->length--;
-//	}
-//	else if(L->length > 1){
-//		L->head->next = L->head;
-//		erase(L->head->back);
-//		L->length--;
-//	}
-//}
-
-//void deleteBack(List L){
-//	        if(L->length == 1){
-//                erase(L->head);
-//                erase(L->tail);
-//                erase(L->cursor);
-//                L->length--;
-//        }
-//        else if(L->length > 1){
-//                L->tail->back = L->tail;
-//                erase(L->tail->next);
-//                L->length--;
-//        }
-//}
-
+//erases a supplied node
 void erase(Node N){
 	if(N != NULL){
 		free(N);
@@ -287,6 +265,7 @@ void erase(Node N){
 	}
 }
 
+//prints the entire list assuming there are elements
 void printList(FILE* out, List L){
 	if (L->head == NULL){
 		return;

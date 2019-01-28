@@ -1,1 +1,12 @@
-//test
+//README
+//Name: Taylor Infuso
+//Assignment: Programming Assignment 1
+//Date: 27 January, 2019
+//Description:
+//This program works with abstract data types to organize the contents 
+//list objects. Integers are held within node objects. Multiple 
+//functions exist to allow for alterations within the lists like 
+//specific insertion and deletion. List.h and List.c maintain the lists
+//and nodes in the project while ListClient.c can be used to run tests
+//(all of which I was successful at implementing). I have not done much 
+//with InsertSortLinked however.
